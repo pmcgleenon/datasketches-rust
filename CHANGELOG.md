@@ -16,6 +16,7 @@ All significant changes to this project will be documented in this file.
 * Repeated scalar `TDigest::rank` queries are faster, including small digests and data with repeated values.
 * `TDigest` and `TDigestMut` CDF and PMF batches are faster for many split points; batches with sparse split points keep the original binary-search behavior.
 * `BloomFilter::insert` is faster for streams of new items when multiple hashes are configured.
+* `BloomFilter` insert and membership queries compute bit indexes without 64-bit hardware division, which makes them up to 2x faster on CPUs with slow dividers (Haswell and Skylake class) and leaves other CPUs unchanged. `u64` items also take a shorter hashing path, which makes `insert` and `contains_and_insert` of `u64` items 1.4x to 1.6x faster on the measured CPUs.
 
 ## v0.6.0 (2026-10-29)
 
